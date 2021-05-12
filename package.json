@@ -1,0 +1,24 @@
+{
+  "name": "tg-bot-host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/midianok/tg-bot-host.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/midianok/tg-bot-host/issues"
+  },
+  "homepage": "https://github.com/midianok/tg-bot-host#readme",
+  "dependencies": {
+    "telegraf": "^4.3.0"
+  }
+}
