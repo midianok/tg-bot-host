@@ -20,5 +20,8 @@
   "homepage": "https://github.com/midianok/tg-bot-host#readme",
   "dependencies": {
     "telegraf": "^4.3.0"
+  },
+  "devDependencies": {
+    "mongodb": "^3.6.6"
   }
 }
