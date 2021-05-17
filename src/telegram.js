@@ -18,7 +18,8 @@ const runTgBot = async (config) => {
                 if (action.on === 'new_chat_members'){
                     bot.on(action.on, (ctx) => {
                         ctx.message.new_chat_members.forEach(function (user) {
-                            const message = action.reply.replace("{user}", `@${user.username}`)
+                            const userName = user.username ?? user.first_name;
+                            const message = action.reply.replace("{user}", `@${userName}`)
                             ctx.reply(message);
                         });
                     })
