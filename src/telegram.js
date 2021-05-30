@@ -46,7 +46,7 @@ const runTgBot = async (config) => {
                             const [response] = await client.recognize(request);
                             const transcription = response.results[0]?.alternatives[0]?.transcript;
                             const result = transcription ?
-                                `Вот что наговорил\\_a *${ctx.update.message.from.first_name}* \\(а лучше бы жопу скинул\\_a\\):\n_${transcription}_` :
+                                `Вот что наговорил\\_a *${ctx.update.message.from.first_name}* \\(а лучше бы жопу скинул\\_a\\):\n_${transcription.replaceAll("-", "\\-")}_` :
                                 `Ничего не понятно что вы там *${ctx.update.message.from.first_name}* ноговорил\\_a, если честно, лучше бы жопу скинул\\_a`;
 
                             await ctx.telegram.editMessageText(chatId, message_id, null, result, { parse_mode: 'MarkdownV2' });
