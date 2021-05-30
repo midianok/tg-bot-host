@@ -6,6 +6,7 @@ const speech = require('@google-cloud/speech');
 const axios = require('axios');
 const MongoClient = require('mongodb').MongoClient;
 const { GREETINGS, REPLY, SPEECH_TO_TEXT} = require('./operations');
+const checkTime = require('./checkTime');
 
 const runTgBot = async (config) => {
     const client = new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -15,11 +16,11 @@ const runTgBot = async (config) => {
         const bots = await collection.find({}).toArray();
         for (const botConfig of bots) {
             const bot = new Telegraf(botConfig.token);
-
+            bot.use(checkTime);
             for (const operation of botConfig.operations) {
                 switch (operation.type) {
                     case SPEECH_TO_TEXT:
-                        bot.on('voice', async ctx => {
+                        bot.on('voice', async (ctx, next) => {
                             const { chat: {id: chatId}, message_id } = await ctx.telegram.sendMessage(ctx.chat.id, "Тэкс, снова войс. А могли бы жопу скинуть.");
 
                             const fileUrl = await bot.telegram.getFileLink(ctx.update.message.voice);
@@ -53,10 +54,10 @@ const runTgBot = async (config) => {
                             });
                         break;
                     case REPLY:
-                        bot.on('text', ctx => ctx.reply(operation.response));
+                        bot.on('text', (ctx, next) => ctx.reply(operation.response));
                         break;
                     case GREETINGS:
-                        bot.on('new_chat_members', (ctx) => {
+                        bot.on('new_chat_members', (ctx, next) => {
                             ctx.message.new_chat_members.forEach(function (user) {
                                 const userName = user.username ?? user.first_name;
                                 const message = operation.response.replace("{user}", `@${userName}`)
