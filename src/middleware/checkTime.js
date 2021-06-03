@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-module.exports = (ctx, next) => {
+module.exports.checkTime = (ctx, next) => {
     if (!ctx.message?.date){
         return next();
     }
