@@ -46,7 +46,7 @@ module.exports.speechToText = (bot, operation) => {
         if (transcription) {
             const randomResponse = getRandomElement(operation.successVoiceDetectionMessages);
             const replacedPatternResponse = replaceFirstName(format.escape(randomResponse), firstName);
-            result = `${replacedPatternResponse}:\n${format.italic(transcription)}`
+            result = `${replacedPatternResponse}:\n${format.italic(format.escape(transcription))}`
         }
         else {
             const randomResponse = getRandomElement(operation.failVoiceDetectionMessages);
