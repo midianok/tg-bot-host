@@ -1,0 +1,1 @@
+module.exports.defaultDetectVoiceMessage = "Обнаружено аудиосообщение. Попробую распознать";

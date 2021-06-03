@@ -534,6 +534,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+markdown-escapes@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-2.0.0.tgz#2212f73847ee5abe32a75354bcd007dc52083e92"
+  integrity sha512-YeCb+vz4wCZ000bdC/AblLsvuDy1G3zmWEJNlfflep42D2cXeRiCewY93F1/6a39mU8fzvcpCkwcErieUn08Jg==
+
 memory-pager@^1.0.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/memory-pager/-/memory-pager-1.5.0.tgz#d8751655d22d384682741c972f2c3d6dfa3e66b5"
@@ -792,6 +797,11 @@ telegraf@^4.3.0:
     safe-compare "^1.1.4"
     sandwich-stream "^2.0.2"
     typegram "^3.2.0"
+
+telegram-format@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/telegram-format/-/telegram-format-2.0.2.tgz#f0ef223f4a81c180f823622499b408c6593a1133"
+  integrity sha512-OE0SHR8pINftjFt01QfHq+Ujedbqna5CInw+PwdbS1/ySrvIBhPZSGo7uas6ktaPv0mnoPKNJR+seouOSXFZiA==
 
 "through@>=2.2.7 <3":
   version "2.3.8"
