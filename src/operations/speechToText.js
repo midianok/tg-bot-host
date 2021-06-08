@@ -1,8 +1,8 @@
 const fs = require('fs').promises;
 const axios = require('axios');
 const speech = require('@google-cloud/speech');
-const ffprobeStatic = require('ffprobe-static');
-const ffprobe = require('ffprobe');
+const exiftool = require('node-exiftool')
+const exiftoolPath = require('dist-exiftool');
 const { markdownv2: format } = require('telegram-format');
 
 const { defaultDetectVoiceMessage } = require("./../constants")
@@ -13,7 +13,6 @@ module.exports.SPEECH_TO_TEXT = "speech-to-text";
 
 module.exports.speechToText = (bot, operation) => {
     bot.on('voice', async (ctx, next) => {
-
         const detectVoiceMessage = getRandomElement(operation.detectVoiceMessages) ?? defaultDetectVoiceMessage;
         const { chat: {id: chatId}, message_id } = await ctx.telegram.sendMessage(ctx.chat.id, detectVoiceMessage);
 
@@ -21,12 +20,13 @@ module.exports.speechToText = (bot, operation) => {
         const tgVoiceFile = await axios.get(fileUrl.toString(),{ responseType: 'arraybuffer' });
         const filePath = ctx.update.message.voice.file_unique_id;
         await fs.writeFile(filePath, tgVoiceFile.data);
-        const oggMetadata = await ffprobe(filePath, { path: ffprobeStatic.path });
-        const rateHertz = oggMetadata.streams[0].sample_rate;
 
-        const client = new speech.SpeechClient();
+        const ep = new exiftool.ExiftoolProcess(exiftoolPath);
+        const oggMetadata = await ep.open().then(() => ep.readMetadata(filePath, ['-File:all']));
+        const rateHertz = oggMetadata.data[0].SampleRate;
+        await ep.close();
+
         const fileContent = await fs.readFile(filePath, {encoding: 'base64'});
-
         fs.unlink(filePath);
 
         const request = {
@@ -37,7 +37,7 @@ module.exports.speechToText = (bot, operation) => {
                 languageCode: 'ru-RU',
             },
         };
-
+        const client = new speech.SpeechClient();
         const [response] = await client.recognize(request);
         const transcription = response.results.map(x => x.alternatives.map(z => z.transcript)).join(" ");
 
