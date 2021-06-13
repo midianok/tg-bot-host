@@ -28,6 +28,7 @@
     "@google-cloud/speech": "^4.5.1",
     "axios": "^0.21.1",
     "dist-exiftool": "^10.53.0",
+    "jest": "^27.0.4",
     "mongodb": "^3.6.6",
     "telegram-format": "^2.0.2"
   }

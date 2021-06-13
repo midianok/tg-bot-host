@@ -12,7 +12,7 @@ const { replaceFirstName } = require("../util/replacePattern")
 module.exports.SPEECH_TO_TEXT = "speech-to-text";
 
 module.exports.speechToText = (bot, operation) => {
-    bot.on('voice', async (ctx, next) => {
+    bot.on('voice', async (ctx) => {
         const detectVoiceMessage = getRandomElement(operation.detectVoiceMessages) ?? defaultDetectVoiceMessage;
         const { chat: {id: chatId}, message_id } = await ctx.telegram.sendMessage(ctx.chat.id, detectVoiceMessage);
 
@@ -35,6 +35,7 @@ module.exports.speechToText = (bot, operation) => {
                 encoding: 'OGG_OPUS',
                 sampleRateHertz: rateHertz,
                 languageCode: 'ru-RU',
+                alternativeLanguageCodes: ['uk_UA']
             },
         };
         const client = new speech.SpeechClient();
