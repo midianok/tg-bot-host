@@ -12,7 +12,7 @@ const { replaceFirstName } = require("../util/replacePattern")
 module.exports.SPEECH_TO_TEXT = "speech-to-text";
 
 module.exports.speechToText = (bot, operation) => {
-    bot.on('voice', async (ctx, next) => {
+    bot.on('voice', async (ctx) => {
         const detectVoiceMessage = getRandomElement(operation.detectVoiceMessages) ?? defaultDetectVoiceMessage;
         const { chat: {id: chatId}, message_id } = await ctx.telegram.sendMessage(ctx.chat.id, detectVoiceMessage);
 
@@ -54,5 +54,15 @@ module.exports.speechToText = (bot, operation) => {
         }
 
         await ctx.telegram.editMessageText(chatId, message_id, null, result, { parse_mode: 'MarkdownV2' });
+    });
+
+    bot.on('text', async (ctx, next) => {
+        const t1 = ctx.update.message.text;
+        const t2 = ctx.update.message?.reply_to_message?.from?.username;
+        if (ctx.update.message.text === "украинский" && t2 === "ilya_dev_bot"){
+            await ctx.telegram.editMessageText(ctx.update.message.chat.id, ctx.update.message.reply_to_message.message_id, null, "asdasdasdasd", { parse_mode: 'MarkdownV2' });
+        }
+        console.log(ctx);
+        next();
     });
 };
