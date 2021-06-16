@@ -1,5 +1,6 @@
 const { Telegraf } = require("telegraf");
 const { SPEECH_TO_TEXT, speechToText } = require("./operations/speechToText");
+const { FAREWELL, farewell } = require("./operations/farewell");
 const { REPLY, reply } = require("./operations/reply");
 const { GREETINGS, greetings } = require("./operations/greetings");
 const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
@@ -21,6 +22,9 @@ const init = async (config) => {
                     break;
                 case GREETINGS:
                     await greetings(bot, operation)
+                    break;
+                case FAREWELL:
+                    await farewell(bot, operation)
                     break;
                 default:
                     console.log('Unsupported feature');
