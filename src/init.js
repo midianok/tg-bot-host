@@ -3,6 +3,7 @@ const { SPEECH_TO_TEXT, speechToText } = require("./operations/speechToText");
 const { FAREWELL, farewell } = require("./operations/farewell");
 const { REPLY, reply } = require("./operations/reply");
 const { GREETINGS, greetings } = require("./operations/greetings");
+const { TIKTOK, tiktok } = require("./operations/tikTok");
 const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
 const { checkTime } = require("./middleware/checkTime");
 
@@ -25,6 +26,9 @@ const init = async (config) => {
                     break;
                 case FAREWELL:
                     await farewell(bot, operation)
+                    break;
+                case TIKTOK:
+                    await tiktok(bot, operation)
                     break;
                 default:
                     console.log('Unsupported feature');
