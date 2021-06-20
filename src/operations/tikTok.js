@@ -1,6 +1,5 @@
 module.exports.TIKTOK = "tiktok";
 const TikTokScraper = require('tiktok-scraper');
-
 const { nonDeletingRateLimiter, downloadBuffer } = require("../util/utils");
 
 
@@ -8,10 +7,7 @@ module.exports.tiktok = (bot, operation) => {
     bot.hears((text, ctx) => {
             if (ctx.message.entities) {
                 for (const entity of ctx.message.entities.filter((x) => x.type === "text_link")) {
-                    if (
-                        entity.url.startsWith("https://www.tiktok.com/") &&
-                        entity.url.indexOf("video") > 0
-                    ) {
+                    if (entity.url.startsWith("https://www.tiktok.com/") && entity.url.indexOf("video") > 0) {
                         ctx.url = entity.url;
                         return true;
                     }

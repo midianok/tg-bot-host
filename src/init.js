@@ -7,8 +7,8 @@ const { TIKTOK, tiktok } = require("./operations/tikTok");
 const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
 const { checkTime } = require("./middleware/checkTime");
 
-const init = async (config) => {
-    const bots = await findAllBotsConfigurations(config);
+const init = async () => {
+    const bots = await findAllBotsConfigurations();
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
         bot.use(checkTime);
