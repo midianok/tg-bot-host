@@ -1,6 +1,7 @@
 module.exports.TIKTOK = "tiktok";
 const TikTokScraper = require('tiktok-scraper');
 const { nonDeletingRateLimiter, downloadBuffer } = require("../util/utils");
+const { logger } = require("../logger");
 
 
 module.exports.tiktok = (bot, operation) => {
@@ -37,7 +38,7 @@ module.exports.tiktok = (bot, operation) => {
     );
 }
 
-function makeCaption(videoMeta) {
+const makeCaption = videoMeta => {
     const description = videoMeta.text;
     const authorUsername = `@${videoMeta.authorMeta.name}`;
     const authorLink = `<a href="https://www.tiktok.com/${authorUsername}">${authorUsername}</a>`
@@ -45,21 +46,42 @@ function makeCaption(videoMeta) {
 }
 
 const handleTiktokPost = async (ctx, next) => {
+    const logMeta = {
+        botName: ctx.botInfo.username,
+        operation: module.exports.TIKTOK,
+        chatName: ctx.update.message.chat.username,
+        fromUserName: ctx.update.message.from.username,
+        fromFirstName: ctx.update.message.from.first_name,
+        updateId: ctx.update.update_id
+    };
+    logger.info('tiktok link detected', {...logMeta, tiktokUtl: ctx.url})
+
     const videoMeta = await TikTokScraper.getVideoMeta(ctx.url);
     const videoUrl = videoMeta.collector[0].videoUrl;
     const collector = videoMeta.collector[0];
+    logger.info('tiktok video meta obtained', {...logMeta, videoMeta: videoMeta.collector[0]})
 
-    if (videoUrl) {
-        const caption = makeCaption(collector);
-
-        ctx.replyWithVideo(videoUrl, { caption: caption, reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' })
-            .catch(async (err) => {
-                const buffer = await downloadBuffer(videoUrl, videoMeta.headers);
-                if (buffer.byteLength > 10) {
-                    await ctx.replyWithVideo({ source: buffer }, { caption: caption, reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' });
-                } else {
-                    await ctx.replyWithMarkdown(`[Ссылка](${videoUrl})`, { reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' });
-                }
-            });
+    if (!videoUrl) {
+        logger.info('tiktok videoUrl is empty', logMeta);
+        return;
     }
+
+    const caption = makeCaption(collector);
+
+    ctx.replyWithVideo(videoUrl, { caption: caption, reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' })
+        .catch(async (err) => {
+            const buffer = await downloadBuffer(videoUrl, videoMeta.headers);
+            logger.info('tiktok video videoUrl send fail, trying to send as buffer', logMeta);
+            if (buffer.byteLength > 10) {
+                await ctx.replyWithVideo({ source: buffer }, { caption: caption, reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' });
+                logger.info('tiktok video sended as buffer', logMeta);
+            } else {
+                await ctx.replyWithMarkdown(`[Ссылка](${videoUrl})`, { reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' });
+                logger.info('tiktok video send failed', logMeta);
+            }
+        })
+        .then(() => logger.info('tiktok video send complete', { ...logMeta, videoUrl, caption }));
+
+
+
 };

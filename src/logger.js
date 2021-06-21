@@ -5,7 +5,6 @@ require('winston-mongodb');
 
 const logger = winston.createLogger({
     format: winston.format.combine(winston.format.json(), winston.format.metadata()),
-    defaultMeta: { service: 'user-service' },
     transports: [
         new winston.transports.MongoDB({
             db : new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).connect()
