@@ -54,9 +54,16 @@ const handleTiktokPost = async (ctx, next) => {
         fromFirstName: ctx.update.message.from.first_name,
         updateId: ctx.update.update_id
     };
-    logger.info('tiktok link detected', {...logMeta, tiktokUtl: ctx.url})
+    logger.info('tiktok link detected', {...logMeta, tiktokUrl: ctx.url})
 
-    const videoMeta = await TikTokScraper.getVideoMeta(ctx.url);
+    let videoMeta;
+    try {
+        videoMeta = await TikTokScraper.getVideoMeta(ctx.url);
+    } catch (err) {
+        logger.info("cannot get tiktok video metada", {...logMeta, err});
+        return;
+    }
+
     const videoUrl = videoMeta.collector[0].videoUrl;
     const collector = videoMeta.collector[0];
     logger.info('tiktok video meta obtained', {...logMeta, videoMeta: videoMeta.collector[0]})
