@@ -6,13 +6,15 @@ const { GREETINGS, greetings } = require("./operations/greetings");
 const { TIKTOK, tiktok } = require("./operations/tikTok");
 const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
 const { checkTime } = require("./middleware/checkTime");
+const { logger } = require("./logger");
 
-const init = async (config) => {
-    const bots = await findAllBotsConfigurations(config);
+const init = async () => {
+    logger.info("app started", { pid: process.pid})
+    const bots = await findAllBotsConfigurations();
+    logger.info(`${bots.length} bots finded`, { bots: bots.map(x => x.name) });
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
         bot.use(checkTime);
-
         for (const operation of botConfig.operations) {
             switch (operation.type) {
                 case SPEECH_TO_TEXT:
@@ -31,14 +33,20 @@ const init = async (config) => {
                     await tiktok(bot, operation)
                     break;
                 default:
-                    console.log('Unsupported feature');
+                    logger.error(`Unsupported feature "${operation.type}" for bot "${bot.name}"`, { botName: bot.name, operation:  operation.type});
             }
         }
 
         await bot.launch();
 
-        process.once('SIGINT', () => bot.stop('SIGINT'))
-        process.once('SIGTERM', () => bot.stop('SIGTERM'))
+        process.once('SIGINT', () => {
+            bot.stop('SIGINT');
+            logger.info("app stoped", { pid: process.pid, reason: 'SIGINT'})
+        })
+        process.once('SIGTERM', () => {
+            bot.stop('SIGTERM')
+            logger.info("app stoped", { pid: process.pid, reason: 'SIGTERM'})
+        })
     }
 };
 
