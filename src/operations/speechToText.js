@@ -18,8 +18,8 @@ module.exports.speechToText = (bot, operation) => {
             botName: ctx.botInfo.username,
             operation: module.exports.SPEECH_TO_TEXT,
             chatName: ctx.update.message.chat.username,
-            fromUserName: ctx.update.message.username,
-            fromFirstName: ctx.update.message.first_name,
+            fromUserName: ctx.update.message.from.username,
+            fromFirstName: ctx.update.message.from.first_name,
             updateId: ctx.update.update_id
         };
         logger.info(`voice message detected`, logMeta)
