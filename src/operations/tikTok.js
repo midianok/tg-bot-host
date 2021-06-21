@@ -60,7 +60,7 @@ const handleTiktokPost = async (ctx, next) => {
     try {
         videoMeta = await TikTokScraper.getVideoMeta(ctx.url);
     } catch (err) {
-        logger.info("cannot get tiktok video metada", {...logMeta, err});
+        logger.info("cannot get tiktok video metadata", {...logMeta, err});
         return;
     }
 
@@ -81,7 +81,7 @@ const handleTiktokPost = async (ctx, next) => {
             logger.info('tiktok video videoUrl send fail, trying to send as buffer', logMeta);
             if (buffer.byteLength > 10) {
                 await ctx.replyWithVideo({ source: buffer }, { caption: caption, reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' });
-                logger.info('tiktok video sended as buffer', logMeta);
+                logger.info('tiktok video sent as buffer', logMeta);
             } else {
                 await ctx.replyWithMarkdown(`[Ссылка](${videoUrl})`, { reply_to_message_id: ctx.message.message_id, parse_mode: 'HTML' });
                 logger.info('tiktok video send failed', logMeta);

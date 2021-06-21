@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { logger } = require("../logger");
 
 module.exports.checkTime = (ctx, next) => {
     if (!ctx.message?.date){
@@ -10,6 +11,6 @@ module.exports.checkTime = (ctx, next) => {
     if (timeDiffInMinutes < 60) {
         next();
     } else {
-        console.log(`Ignoring messages updateType: 'message' from ${ctx.chat.id}`);
+        logger.info(`Ignoring messages updateType: 'message' from ${ctx.chat.id}`);
     }
 };

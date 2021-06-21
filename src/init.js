@@ -11,7 +11,7 @@ const { logger } = require("./logger");
 const init = async () => {
     logger.info("app started", { pid: process.pid})
     const bots = await findAllBotsConfigurations();
-    logger.info(`${bots.length} bots finded`, { bots: bots.map(x => x.name) });
+    logger.info(`${bots.length} bots found`, { bots: bots.map(x => x.name) });
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
         bot.use(checkTime);
