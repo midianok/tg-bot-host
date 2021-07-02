@@ -23,6 +23,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
     - name: Install dependencies
-      run: yarn test
+      run: yarn
     - name: Run tests
       run: yarn test
