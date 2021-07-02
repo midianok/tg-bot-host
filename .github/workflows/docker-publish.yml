@@ -34,3 +34,6 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+      - name: Update container
+        run: 'curl -H "Authorization: Bearer ${{ secrets.WATCHTOWER_UPDATE_KEY }}" ${{ secrets.HOST_IP }}/v1/update'
