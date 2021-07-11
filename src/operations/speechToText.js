@@ -27,10 +27,10 @@ module.exports.speechToText = (bot, operation) => {
         const detectVoiceMessage = getRandomElement(operation.detectVoiceMessages) ?? defaultDetectVoiceMessage;
         const { chat: {id: chatId}, message_id } = await ctx.telegram.sendMessage(ctx.chat.id, detectVoiceMessage);
 
-        logger.info(`tring to getFileLink`, {...logMeta});
+        logger.info(`trying to getFileLink`, {...logMeta});
         const fileUrl = await bot.telegram.getFileLink(ctx.update.message.voice);
 
-        logger.info(`tring to download voice file`, {...logMeta, fileUrl: fileUrl.toString()});
+        logger.info(`trying to download voice file`, {...logMeta, fileUrl: fileUrl.toString()});
         const tgVoiceFile = await axios.get(fileUrl.toString(),{ responseType: 'arraybuffer' });
         const filePath = ctx.update.message.voice.file_unique_id;
         await fs.writeFile(filePath, tgVoiceFile.data);
