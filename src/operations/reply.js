@@ -27,10 +27,29 @@ module.exports.reply = (bot, operation) => {
             logger.info("reply fail", {...logMeta, isBot, userInReplyList, hits});
             return next();
         }
+        const replies = [];
+        if (operation.replies && operation.replies.length > 0) {
+            replies.push(...operation.replies.map( x =>  { return { type: 'text', reply: x } }))
+        }
 
-        const message = getRandomElement(operation.replies);
-        ctx.reply(message, {reply_to_message_id : ctx.message.message_id});
-        logger.info("reply success", {...logMeta, isBot, userInReplyList, hits, reply: message});
+        if (operation.stiсkerReplies && operation.stiсkerReplies.length > 0) {
+            replies.push(...operation.stiсkerReplies.map( x =>  { return { type: 'sticker', reply: x } }));
+        }
+        if (replies.length === 0) {
+            logger.info("replies is empty", {...logMeta, isBot, userInReplyList, hits});
+            return next();
+        }
+
+        const result = getRandomElement(replies);
+        if (result.type === 'text') {
+            ctx.reply(result.reply, {reply_to_message_id : ctx.message.message_id});
+            logger.info("reply with text success", {...logMeta, isBot, userInReplyList, hits, reply: result.reply});
+        }
+
+        if (result.type === 'sticker') {
+            ctx.replyWithSticker(result.reply, {reply_to_message_id : ctx.message.message_id});
+            logger.info("reply with sticker success", {...logMeta, isBot, userInReplyList, hits, reply: result.reply});
+        }
 
         return next();
     })
