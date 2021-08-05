@@ -62,7 +62,7 @@ module.exports.speechToText = (bot, operation) => {
 
         const transcription = response.results.map(x => x.alternatives.map(z => z.transcript)).join(" ");
         let result;
-        const firstName = format.bold(ctx.update.message.from.first_name);
+        const firstName = format.bold(format.escape(ctx.update.message.from.first_name));
         if (transcription) {
             logger.info(`voice message recognize success`, logMeta);
             const randomResponse = getRandomElement(operation.successVoiceDetectionMessages);
@@ -72,7 +72,7 @@ module.exports.speechToText = (bot, operation) => {
         else {
             logger.info(`voice message recognize fail`, logMeta);
             const randomResponse = getRandomElement(operation.failVoiceDetectionMessages);
-            result = replaceFirstName(format.escape(randomResponse), firstName);
+            result = replaceFirstName(format.escape(randomResponse),  firstName);
         }
 
         await ctx.telegram.editMessageText(chatId, message_id, null, result, { parse_mode: 'MarkdownV2' });
