@@ -1,5 +1,6 @@
 const { Telegraf } = require("telegraf");
 const { SPEECH_TO_TEXT, speechToText } = require("./operations/speechToText");
+const { RANDOM_CAT, randomCat } = require("./operations/randomCat");
 const { FAREWELL, farewell } = require("./operations/farewell");
 const { REPLY, reply } = require("./operations/reply");
 const { GREETINGS, greetings } = require("./operations/greetings");
@@ -31,6 +32,9 @@ const init = async () => {
                     break;
                 case TIKTOK:
                     await tiktok(bot, operation)
+                    break;
+                case RANDOM_CAT:
+                    await randomCat(bot, operation)
                     break;
                 default:
                     logger.error(`Unsupported feature "${operation.type}" for bot "${bot.name}"`, { botName: bot.name, operation:  operation.type});
