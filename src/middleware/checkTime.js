@@ -8,7 +8,7 @@ module.exports.checkTime = (ctx, next) => {
 
     const timeDiffInMinutes = moment(moment() - moment.unix(ctx?.message?.date)).minutes();
 
-    if (timeDiffInMinutes < 60) {
+    if (timeDiffInMinutes < 10) {
         next();
     } else {
         logger.info(`Ignoring messages updateType: 'message' from ${ctx.chat.id}`);

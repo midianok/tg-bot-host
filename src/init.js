@@ -8,6 +8,7 @@ const { GREETINGS, greetings } = require("./operations/greetings");
 const { TIKTOK, tiktok } = require("./operations/tikTok");
 const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
 const { checkTime } = require("./middleware/checkTime");
+const { errorHandler } = require("./middleware/errorHandler");
 const { logger } = require("./logger");
 
 const init = async () => {
@@ -16,29 +17,32 @@ const init = async () => {
     logger.info(`${bots.length} bots found`, { bots: bots.map(x => x.name) });
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
+
         bot.use(checkTime);
+        bot.use(errorHandler);
+
         for (const operation of botConfig.operations) {
             switch (operation.type) {
                 case SPEECH_TO_TEXT:
-                    await speechToText(bot, operation);
+                    speechToText(bot, operation);
                     break;
                 case REPLY:
-                    await reply(bot, operation)
+                    reply(bot, operation)
                     break;
                 case GREETINGS:
-                    await greetings(bot, operation)
+                    greetings(bot, operation)
                     break;
                 case FAREWELL:
-                    await farewell(bot, operation)
+                    farewell(bot, operation)
                     break;
                 case TIKTOK:
-                    await tiktok(bot, operation)
+                    tiktok(bot, operation)
                     break;
                 case RANDOM_CAT:
-                    await randomCat(bot, operation)
+                    randomCat(bot, operation)
                     break;
                 case RANDOM_PUG:
-                    await randomPug(bot, operation)
+                    randomPug(bot, operation)
                     break;
                 default:
                     logger.error(`Unsupported feature "${operation.type}" for bot "${bot.name}"`, { botName: bot.name, operation:  operation.type});
