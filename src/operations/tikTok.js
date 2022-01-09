@@ -1,5 +1,5 @@
 module.exports.TIKTOK = "tiktok";
-const TikTokScraper = require('tiktok-scraper');
+const TikTokScraper = require('@pterko/tiktok-scraper');
 const { nonDeletingRateLimiter, downloadBuffer } = require("../util/utils");
 const { logger } = require("../logger");
 
