@@ -1,4 +1,4 @@
-module.exports.VOICE_INLINE = "VoiceInline";
+module.exports.VOICE_INLINE = "voice-inline";
 
 module.exports.sendVoiceInline = (bot, operation) => {
     bot.on('inline_query', async (ctx) => {
