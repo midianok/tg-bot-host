@@ -23,7 +23,6 @@ const init = async () => {
         bot.use(errorHandler);
 
         for (const operation of botConfig.operations) {
-            logger.info(botConfig);
             switch (operation.type) {
                 case SPEECH_TO_TEXT:
                     speechToText(bot, operation);
