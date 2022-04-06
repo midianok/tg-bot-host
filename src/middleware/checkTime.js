@@ -2,6 +2,14 @@ const moment = require('moment');
 const { logger } = require("../logger");
 
 module.exports.checkTime = (ctx, next) => {
+    if (ctx.update?.inline_query){
+        return next();
+    }
+
+    if (ctx.update?.message?.via_bot){
+        return next();
+    }
+
     if (!ctx.message?.date){
         return next();
     }

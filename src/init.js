@@ -6,6 +6,7 @@ const { FAREWELL, farewell } = require("./operations/farewell");
 const { REPLY, reply } = require("./operations/reply");
 const { GREETINGS, greetings } = require("./operations/greetings");
 const { TIKTOK, tiktok } = require("./operations/tikTok");
+const { VOICE_INLINE, sendVoiceInline } = require("./operations/sendVoiceInline");
 const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
 const { checkTime } = require("./middleware/checkTime");
 const { errorHandler } = require("./middleware/errorHandler");
@@ -43,6 +44,9 @@ const init = async () => {
                     break;
                 case RANDOM_PUG:
                     randomPug(bot, operation)
+                    break;
+                case VOICE_INLINE:
+                    sendVoiceInline(bot, operation);
                     break;
                 default:
                     logger.error(`Unsupported feature "${operation.type}" for bot "${bot.name}"`, { botName: bot.name, operation:  operation.type});
