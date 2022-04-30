@@ -620,6 +620,24 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@pterko/tiktok-scraper@^1.4.36":
+  version "1.4.38"
+  resolved "https://registry.yarnpkg.com/@pterko/tiktok-scraper/-/tiktok-scraper-1.4.38.tgz#170bbabfd2e21caa21a13026a18132f8624c78f0"
+  integrity sha512-6pPHwQnkID2VBDvqJY84dvGeH5Az9vkuu4foi6liVbUAQskpSA6hbdcLzvkimgxFK0DihByFnXeyxytnhuwPUg==
+  dependencies:
+    archiver "^3.1.1"
+    async "^3.1.0"
+    bluebird "^3.7.1"
+    canvas "^2.7.0"
+    jsdom "^16.5.3"
+    json2csv "4.5.1"
+    ora "^4.0.2"
+    progress "^2.0.3"
+    request "^2.88.0"
+    request-promise "^4.2.4"
+    socks-proxy-agent "^5.0.0"
+    yargs "^14.2.0"
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.3.tgz#3802ddd21a50a949b6721ddd72da36e67e7f1b2d"
@@ -1283,6 +1301,11 @@ cliui@^7.0.2:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
+
+clone@2.x:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
 
 clone@^1.0.2:
   version "1.0.4"
@@ -3065,6 +3088,13 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
+node-cache@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/node-cache/-/node-cache-5.1.2.tgz#f264dc2ccad0a780e76253a694e9fd0ed19c398d"
+  integrity sha512-t1QzWwnk4sjLWaQAS8CHgOJ+RAfmHpxFWmc36IWTiWHQfs0w5JDMBS1b1ZxQteo0vVVuWJvIUKHDkkeK7vIGCg==
+  dependencies:
+    clone "2.x"
+
 node-exiftool@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/node-exiftool/-/node-exiftool-2.3.0.tgz#d5142d34de6f1683b4655198b648e7e3ee6e80ac"
@@ -3956,24 +3986,6 @@ throat@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/throat/-/throat-6.0.1.tgz#d514fedad95740c12c2d7fc70ea863eb51ade375"
   integrity sha512-8hmiGIJMDlwjg7dlJ4yKGLK8EsYqKgPWbG3b4wjJddKNwc7N7Dpn08Df4szr/sZdMVeOstrdYSsqzX6BYbcB+w==
-
-tiktok-scraper@^1.4.31:
-  version "1.4.36"
-  resolved "https://registry.yarnpkg.com/tiktok-scraper/-/tiktok-scraper-1.4.36.tgz#1d08f9e7758d3d07882296638ff0c0acda9a22be"
-  integrity sha512-PdW9ZyKxMyjb51MizLpiH8Hlxj1cuzTiCyb/uYokBUXezwpAvP7oHU62JnFYJAv9NKuDE5YkX3FFiiAJb1rw9w==
-  dependencies:
-    archiver "^3.1.1"
-    async "^3.1.0"
-    bluebird "^3.7.1"
-    canvas "^2.7.0"
-    jsdom "^16.5.3"
-    json2csv "4.5.1"
-    ora "^4.0.2"
-    progress "^2.0.3"
-    request "^2.88.0"
-    request-promise "^4.2.4"
-    socks-proxy-agent "^5.0.0"
-    yargs "^14.2.0"
 
 tmpl@1.0.x:
   version "1.0.5"
