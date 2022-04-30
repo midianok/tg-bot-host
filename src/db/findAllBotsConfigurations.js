@@ -12,3 +12,14 @@ module.exports.findAllBotsConfigurations = async () => {
     await client.close();
     return bots;
 }
+
+module.exports.findBotConfiguration = async (botToken) => {
+    const client = await new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).connect();
+
+    const bot = await client
+        .db(config.dbName)
+        .collection(config.collectionName)
+        .findOne({token: botToken});
+    await client.close();
+    return bot;
+}

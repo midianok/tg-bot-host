@@ -6,8 +6,9 @@ const { FAREWELL, farewell } = require("./operations/farewell");
 const { REPLY, reply } = require("./operations/reply");
 const { GREETINGS, greetings } = require("./operations/greetings");
 const { TIKTOK, tiktok } = require("./operations/tikTok");
-const { VOICE_INLINE, sendVoiceInline } = require("./operations/VoiceInline");
-const { findAllBotsConfigurations } = require("./db/findAllBotsConfigurations");
+const { VOICE_INLINE, sendVoiceInline } = require("./operations/voiceInline");
+const { findAllBotsConfigurations, findBotConfiguration } = require("./db/findAllBotsConfigurations");
+const { clearCache } = require("./util/operationCache");
 const { checkTime } = require("./middleware/checkTime");
 const { errorHandler } = require("./middleware/errorHandler");
 const { logger } = require("./logger");
@@ -16,6 +17,7 @@ const init = async () => {
     logger.info("app started", { pid: process.pid})
     const bots = await findAllBotsConfigurations();
     logger.info(`${bots.length} bots found`, { bots: bots.map(x => x.name) });
+
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
 
@@ -54,6 +56,7 @@ const init = async () => {
         }
 
         await bot.launch();
+        bot.command('clearcache', (ctx) => clearCache(bot.token))
 
         process.once('SIGINT', () => {
             bot.stop('SIGINT');
