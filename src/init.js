@@ -7,8 +7,6 @@ const { logger } = require("./logger");
 const { features } = require("./operations/features");
 
 const init = async () => {
-    //await addVoiceInlineItem('5124918242:AAG7BNYu4oeeRmQb7WAAFym_p-gnFvpJm04');
-    //return;
 
     logger.info("app started", { pid: process.pid})
 
