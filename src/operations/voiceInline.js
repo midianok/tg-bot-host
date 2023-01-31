@@ -1,12 +1,15 @@
 const { getCachedOperation } = require("../util/operationCache");
+const { addVoiceInlineItem } = require("../db/botRepository");
 const { markdownv2: format } = require('telegram-format');
 const operationName = "voice-inline"
 module.exports.VOICE_INLINE = operationName;
 
 module.exports.sendVoiceInline = (bot, operation) => {
     bot.on('voice', async ctx => {
-        const fileId = format.monospace(ctx.update.message.voice.file_id);
-        await ctx.replyWithMarkdown(fileId, { parse_mode: 'MarkdownV2' })
+        const fileId = ctx.update.message.voice.file_id;
+
+        await addVoiceInlineItem(bot.token, fileId);
+        await ctx.replyWithMarkdown(format.monospace(fileId), { parse_mode: 'MarkdownV2' })
     });
 
     bot.on('inline_query', async (ctx) => {

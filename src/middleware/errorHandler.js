@@ -15,9 +15,9 @@ const retry = async (tryCount, func, ctx) => {
             counter++;
             logger.error(e, {
                 botName: ctx.botInfo.username,
-                chatName: ctx.update.message.chat.username,
-                fromUserName: ctx.update.message.from.username,
-                fromFirstName: ctx.update.message.from.first_name,
+                chatName: ctx.update.message?.chat.username,
+                fromUserName: ctx.update.message?.from.username,
+                fromFirstName: ctx.update.message?.from.first_name,
                 updateId: ctx.update.update_id,
                 tryCount: counter
             });

@@ -1,13 +1,17 @@
 const { getRandomElement } = require("./../util/getRandomString");
 const { probability } = require("./../util/probability");
 const { logger } = require("../logger");
+const {getCachedOperation} = require("../util/operationCache");
 
-module.exports.REPLY = "reply";
+const operationName = "reply"
+module.exports.REPLY = operationName;
 
-module.exports.reply = (bot, operation) => {
+module.exports.reply = async (bot) => {
+    const operation = await getCachedOperation(bot.token, operationName)
     const regexp = new RegExp(operation.regexPattern);
 
-    bot.hears(regexp, (ctx, next) => {
+    bot.hears(regexp,async (ctx, next) => {
+        const operation = await getCachedOperation(bot.token, operationName);
         const logMeta = {
             botName: ctx.botInfo.username,
             operation: module.exports.REPLY,

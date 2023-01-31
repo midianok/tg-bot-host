@@ -1,6 +1,6 @@
 const NodeCache = require( "node-cache" );
-const { findBotConfiguration } = require("../db/findAllBotsConfigurations");
-const myCache = new NodeCache( { stdTTL: 60 * 10 } );
+const { findBotConfiguration } = require("../db/botRepository");
+const myCache = new NodeCache( { stdTTL: 60 * 60 * 24 } );
 
 module.exports.getCachedOperation = async (botToken, operationType) => {
 
@@ -20,6 +20,8 @@ module.exports.getCachedOperation = async (botToken, operationType) => {
 
 module.exports.clearCache = (botToken) => {
     if(myCache.has(botToken)){
-         myCache.del(botToken);
+         myCache.del(botToken)
+         return true;
     }
+    return false;
 }

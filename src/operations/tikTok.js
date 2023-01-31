@@ -4,7 +4,7 @@ const { nonDeletingRateLimiter, downloadBuffer } = require("../util/utils");
 const { logger } = require("../logger");
 
 
-module.exports.tiktok = (bot, operation) => {
+module.exports.tiktok = (bot) => {
     bot.hears((text, ctx) => {
             if (ctx.message.entities) {
                 for (const entity of ctx.message.entities.filter((x) => x.type === "text_link")) {

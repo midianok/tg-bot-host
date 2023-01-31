@@ -4,13 +4,14 @@ const speech = require('@google-cloud/speech');
 const exiftool = require('node-exiftool')
 const exiftoolPath = require('dist-exiftool');
 const { markdownv2: format } = require('telegram-format');
-
 const { defaultDetectVoiceMessage } = require("./../constants");
 const { getRandomElement } = require("./../util/getRandomString");
 const { replaceFirstName } = require("../util/replacePattern");
 const { logger } = require("../logger");
+const {getCachedOperation} = require("../util/operationCache");
 
-module.exports.SPEECH_TO_TEXT = "speech-to-text";
+const operationName = "speech-to-text";
+module.exports.SPEECH_TO_TEXT = operationName;
 
 module.exports.speechToText = (bot, operation) => {
     bot.on('voice', async (ctx) => {
@@ -22,7 +23,9 @@ module.exports.speechToText = (bot, operation) => {
             fromFirstName: ctx.update.message.from.first_name,
             updateId: ctx.update.update_id
         };
+
         logger.info(`voice message detected`, logMeta)
+        const operation = await getCachedOperation(bot.token, operationName)
 
         const detectVoiceMessage = getRandomElement(operation.detectVoiceMessages) ?? defaultDetectVoiceMessage;
         const { chat: {id: chatId}, message_id } = await ctx.telegram.sendMessage(ctx.chat.id, detectVoiceMessage);
