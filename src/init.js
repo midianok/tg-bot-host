@@ -1,8 +1,9 @@
 const { Telegraf } = require("telegraf");
-const { findAllBotsConfigurations, addVoiceInlineItem} = require("./db/botRepository");
+const { findAllBotsConfigurations} = require("./db/botRepository");
 const { clearCache } = require("./util/operationCache");
 const { checkTime } = require("./middleware/checkTime");
 const { errorHandler } = require("./middleware/errorHandler");
+const { debounce } = require("./middleware/debounce");
 const { logger } = require("./logger");
 const { features } = require("./operations/features");
 
@@ -19,6 +20,8 @@ const init = async () => {
 
         bot.use(checkTime);
         bot.use(errorHandler);
+        bot.use(debounce);
+
         botConfig.operations.map(op => {
             const operation = features[op.type];
 
