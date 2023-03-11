@@ -1,4 +1,6 @@
 const { Telegraf } = require("telegraf");
+const telegrafThrottler = require('telegraf-update-logger');
+const { telegrafThrottler } = require('telegraf-throttler');
 const { findAllBotsConfigurations} = require("./db/botRepository");
 const { clearCache } = require("./util/operationCache");
 const { checkTime } = require("./middleware/checkTime");
@@ -21,6 +23,8 @@ const init = async () => {
         bot.use(checkTime);
         bot.use(errorHandler);
         bot.use(debounce);
+        bot.use(telegrafThrottler());
+        bot.use(updateLogger({ colors: true }));
 
         botConfig.operations.map(op => {
             const operation = features[op.type];
