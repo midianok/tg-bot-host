@@ -1,5 +1,5 @@
 const { Telegraf } = require("telegraf");
-const updateLogger = require('telegraf-update-logger');
+const telegrafThrottler = require('telegraf-update-logger');
 const { telegrafThrottler } = require('telegraf-throttler');
 const { findAllBotsConfigurations} = require("./db/botRepository");
 const { clearCache } = require("./util/operationCache");
