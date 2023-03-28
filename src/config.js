@@ -1,3 +1,4 @@
+require('dotenv').config();
 module.exports.config = {
     connectionString: process.env.CONNECTION_STRING,
     dbName: process.env.DB_NAME,
