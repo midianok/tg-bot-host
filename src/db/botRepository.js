@@ -5,7 +5,7 @@ module.exports.findAllBotsConfigurations = async () => {
     const client = await new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).connect();
 
     const bots = await client
-        .db(config.dbName)
+        .db()
         .collection(config.collectionName)
         .find({})
         .toArray();
@@ -17,7 +17,7 @@ module.exports.findBotConfiguration = async (botToken) => {
     const client = await new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).connect();
 
     const bot = await client
-        .db(config.dbName)
+        .db()
         .collection(config.collectionName)
         .findOne({token: botToken});
     await client.close();
@@ -29,7 +29,7 @@ module.exports.addVoiceInlineItem = async (botToken, fileId) => {
     const query = { "token": botToken, "operations.type": "voice-inline"};
 
     const botConfig = await client
-        .db(config.dbName)
+        .db()
         .collection(config.collectionName)
         .findOne(query);
 
@@ -53,7 +53,7 @@ module.exports.addVoiceInlineItem = async (botToken, fileId) => {
     };
 
     const result = await client
-        .db(config.dbName)
+        .db()
         .collection(config.collectionName)
         .updateOne(query, updateDocument);
 
