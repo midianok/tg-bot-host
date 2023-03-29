@@ -1872,6 +1872,11 @@ bluebird@^3.5.0, bluebird@^3.7.1:
   resolved "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
+bottleneck@^2.19.5:
+  version "2.19.5"
+  resolved "https://registry.yarnpkg.com/bottleneck/-/bottleneck-2.19.5.tgz#5df0b90f59fd47656ebe63c78a98419205cadd91"
+  integrity sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==
+
 bowser@^2.11.0:
   version "2.11.0"
   resolved "https://registry.npmjs.org/bowser/-/bowser-2.11.0.tgz"
@@ -2023,7 +2028,7 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0:
+chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -4730,6 +4735,21 @@ telegraf-ratelimit@^2.0.0:
   dependencies:
     debug "^3.1.0"
 
+telegraf-throttler@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/telegraf-throttler/-/telegraf-throttler-0.6.0.tgz#63eba02913dbffecc5dd2e26a72317041cabb54d"
+  integrity sha512-RgoS1lJFdEgIL2WBf9k5nDA9lVTXNjIVRalTwIv81yg7fj0ZmYAvqAtsQRHHUqKS2f+fXuWuZWG0Yv8NFvHQRw==
+  dependencies:
+    bottleneck "^2.19.5"
+
+telegraf-update-logger@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/telegraf-update-logger/-/telegraf-update-logger-1.5.0.tgz#a709605e6d5cb594aec7230506fea3dafc66cd64"
+  integrity sha512-FCQs2ES3+/P/qVY1IJ0seM1/n4vUJa3zUytyQ/MaO1ZiFuYp1mFwZDnC2MUaIlru3R/ruTuZAVQH3lfz4MCQCA==
+  dependencies:
+    chalk "^4.1.0"
+    typegram "^3.2.0"
+
 telegraf@^4.3.0:
   version "4.12.2"
   resolved "https://registry.npmjs.org/telegraf/-/telegraf-4.12.2.tgz"
@@ -4880,6 +4900,11 @@ typedarray-to-buffer@^3.1.5:
   integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
   dependencies:
     is-typedarray "^1.0.0"
+
+typegram@^3.2.0:
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/typegram/-/typegram-3.12.0.tgz#e35e2e50ced1c2b5775176c5b3be5dfffdf03a1a"
+  integrity sha512-/VrU0sJv8BdOsBIpYT4w35C7dPg5YyKP6fLiYN9qYXRZ86TVIiw0ZypkzElTAfDVsJtJSluGAufUrcX7VRSIYQ==
 
 typegram@^4.3.0:
   version "4.3.0"
