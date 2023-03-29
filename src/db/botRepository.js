@@ -6,7 +6,7 @@ module.exports.findAllBotsConfigurations = async () => {
 
     const bots = await client
         .db()
-        .collection(config.collectionName)
+        .collection(config.configurationsCollectionName)
         .find({})
         .toArray();
     await client.close();
@@ -18,7 +18,7 @@ module.exports.findBotConfiguration = async (botToken) => {
 
     const bot = await client
         .db()
-        .collection(config.collectionName)
+        .collection(config.configurationsCollectionName)
         .findOne({token: botToken});
     await client.close();
     return bot;
@@ -30,7 +30,7 @@ module.exports.addVoiceInlineItem = async (botToken, fileId) => {
 
     const botConfig = await client
         .db()
-        .collection(config.collectionName)
+        .collection(config.configurationsCollectionName)
         .findOne(query);
 
     const voiceIds = botConfig
@@ -54,7 +54,7 @@ module.exports.addVoiceInlineItem = async (botToken, fileId) => {
 
     const result = await client
         .db()
-        .collection(config.collectionName)
+        .collection(config.configurationsCollectionName)
         .updateOne(query, updateDocument);
 
     await client.close();
