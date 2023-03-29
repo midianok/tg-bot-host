@@ -37,7 +37,7 @@ const init = async () => {
             operation(bot);
         })
 
-        await bot.launch();
+        bot.launch();
 
         bot.command('clearcache', (ctx) => {
             const result = clearCache(bot.token);
