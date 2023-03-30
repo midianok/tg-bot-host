@@ -6,6 +6,7 @@ const { tiktok, TIKTOK} = require("./tikTok");
 const { randomCat, RANDOM_CAT} = require("./randomCat");
 const { randomPug, RANDOM_PUG} = require("./randomPug");
 const { sendVoiceInline, VOICE_INLINE} = require("./voiceInline");
+const {sendTreechText, TREECH_TEXT } = require("./treechSpeaks");
 
 module.exports.features = {
     [SPEECH_TO_TEXT]: speechToText,
@@ -15,5 +16,6 @@ module.exports.features = {
     [TIKTOK]: tiktok,
     [RANDOM_CAT]: randomCat,
     [RANDOM_PUG]: randomPug,
-    [VOICE_INLINE]: sendVoiceInline
+    [VOICE_INLINE]: sendVoiceInline,
+    [TREECH_TEXT]: sendTreechText
 }
