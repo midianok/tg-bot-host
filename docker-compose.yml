@@ -6,6 +6,8 @@ services:
       CONFIGURATIONS_COLLECTION_NAME: ${CONFIGURATIONS_COLLECTION_NAME}
       CONNECTION_STRING: ${CONNECTION_STRING}
       UNSPLASH_ACCESS_KEY: ${UNSPLASH_ACCESS_KEY}
+  markov:
+    build: ../markov-service/
   mongodb:
     image: mongo
     restart: always
@@ -16,3 +18,5 @@ services:
       - /root/app:/data/db
     ports:
       - "27117:27017"
+networks:
+  app:

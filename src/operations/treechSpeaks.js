@@ -6,12 +6,12 @@ module.exports.TREECH_TEXT = operationName;
 module.exports.sendTreechText = (bot, operation) => {
     bot.on('inline_query', async (ctx) => {
         const responce = [];
-        const treechGeneralResp = await fetch(' http://localhost:8081/treech-general/1');
+        const treechGeneralResp = await fetch(' http://markov:8081/treech-general/1');
         const treechGeneral = await treechGeneralResp.json();
         treechGeneral[0].title = "Высер тричера"
         responce.push(treechGeneral[0])
 
-        const treechItanResp = await fetch(' http://localhost:8081/treech-itan/1');
+        const treechItanResp = await fetch(' http://markov:8081/treech-itan/1');
         const treechItan = await treechItanResp.json();
         treechItan[0].title = "Высер итана"
         treechItan[0].id = "2"
