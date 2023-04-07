@@ -6,21 +6,20 @@ module.exports.TREECH_TEXT = operationName;
 module.exports.sendTreechText = (bot, operation) => {
     bot.on('inline_query', async (ctx) => {
         const responce = [];
-        const treechGeneralResp = await fetch(' http://markov:8081/treech-general/1');
+        const treechGeneralResp = await fetch(' http://markov/treech-general');
         const treechGeneral = await treechGeneralResp.json();
-        treechGeneral[0].title = "Высер тричера"
-        responce.push(treechGeneral[0])
+        treechGeneral.title = "Высер тричера"
+        responce.push(treechGeneral)
 
-        const treechItanResp = await fetch(' http://markov:8081/treech-itan/1');
+        const treechItanResp = await fetch(' http://markov/treech-itan');
         const treechItan = await treechItanResp.json();
-        treechItan[0].title = "Высер итана"
-        treechItan[0].id = "2"
-        responce.push(treechItan[0])
+        treechItan.title = "Высер итана"
+        responce.push(treechItan)
 
-        const replies = responce.map(x =>{
+        const replies = responce.map((x, index) =>{
             return {
                 type: 'article',
-                id: x.id,
+                id: index,
                 title: x.title,
                 message_text: x.message
             }
