@@ -8,11 +8,11 @@ module.exports.sendTreechText = (bot, operation) => {
         const responce = [];
         const treechGeneral = fetch('http://markov/treech-general')
             .then(result => result.text())
-            .then(result => responce.push({ title : "Высер тричера", text: result}));
+            .then(result => responce.push({ title : "Высер тричера", text: result, img: "https://i.imgur.com/9Cm0EQv.jpg"}));
 
         const treechItanText = fetch('http://markov/treech-itan')
             .then(result => result.text())
-            .then(result => responce.push({ title : "Высер тричера", text: result}));
+            .then(result => responce.push({ title : "Высер Итана", text: result, img: "https://i.imgur.com/CO35jw4.png"}));
 
         await Promise.all([treechGeneral, treechItanText]);
 
@@ -21,7 +21,8 @@ module.exports.sendTreechText = (bot, operation) => {
                 type: 'article',
                 id: index,
                 title: x.title,
-                message_text: x.text
+                message_text: x.text,
+                thumb_url: x.img
             }
         });
 
