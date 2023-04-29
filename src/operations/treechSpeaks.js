@@ -16,7 +16,8 @@ module.exports.sendTreechText = (bot, operation) => {
 
         await Promise.all([treechGeneral, treechItanText]);
 
-        const replies = responce.map((x, index) =>{
+        const replies = responce
+            .map((x, index) => {
             return {
                 type: 'article',
                 id: index,
@@ -24,7 +25,7 @@ module.exports.sendTreechText = (bot, operation) => {
                 message_text: x.text,
                 thumb_url: x.img
             }
-        });
+        }).sort((a, b) => a.id - b.id);
 
         ctx.answerInlineQuery(replies, {cache_time: 0});
     })
