@@ -8,6 +8,7 @@ const { errorHandler } = require("./middleware/errorHandler");
 const { debounce } = require("./middleware/debounce");
 const { logger } = require("./logger");
 const { features } = require("./operations/features");
+const { fillAgro } = require('./util/agroStack');
 
 const init = async () => {
 
@@ -16,7 +17,7 @@ const init = async () => {
     const bots = await findAllBotsConfigurations();
 
     logger.info(`${bots.length} bots found`, { bots: bots.map(x => x.name) });
-
+    await fillAgro();
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
 
@@ -25,7 +26,6 @@ const init = async () => {
         bot.use(debounce);
         bot.use(telegrafThrottler());
         bot.use(updateLogger({ colors: true }));
-
         botConfig.operations.map(op => {
             const operation = features[op.type];
 

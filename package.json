@@ -20,6 +20,7 @@
   "dependencies": {
     "@pterko/tiktok-scraper": "^1.4.36",
     "dotenv": "^16.0.3",
+    "fastq": "^1.15.0",
     "markdown-escapes": "^2.0.0",
     "moment": "^2.29.1",
     "node-cache": "^5.1.2",
