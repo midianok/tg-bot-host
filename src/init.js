@@ -8,7 +8,7 @@ const { errorHandler } = require("./middleware/errorHandler");
 const { debounce } = require("./middleware/debounce");
 const { logger } = require("./logger");
 const { features } = require("./operations/features");
-const { fillAgro } = require('./util/agroStack');
+const { initStack } = require("./operations/treechSpeaks")
 
 const init = async () => {
 
@@ -17,7 +17,6 @@ const init = async () => {
     const bots = await findAllBotsConfigurations();
 
     logger.info(`${bots.length} bots found`, { bots: bots.map(x => x.name) });
-    await fillAgro();
     for (const botConfig of bots) {
         const bot = new Telegraf(botConfig.token);
 
@@ -28,6 +27,9 @@ const init = async () => {
         bot.use(updateLogger({ colors: true }));
         botConfig.operations.map(op => {
             const operation = features[op.type];
+            if (op.type === "treech-text") {
+                initStack();
+            }
 
             if (!operation) {
                 logger.error(`Unsupported feature "${operation.type}" for bot "${bot.name}"`, { botName: bot.name, operation:  operation.type});
