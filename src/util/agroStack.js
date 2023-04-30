@@ -1,5 +1,4 @@
 const fastq = require('fastq');
-const wt = require("worker-@thread");
 
 class RefillableStack {
     #fillFunc;

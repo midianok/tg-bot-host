@@ -28,11 +28,11 @@ module.exports.sendTreechText = (bot, operation) => {
     bot.on('inline_query', async (ctx) => {
         const responce = [];
         const itanText = itanStack.pop()
-            .then(result => responce.push({id:1, title : "Высер Итана", text: result, img: "https://i.imgur.com/CO35jw4.png"}));
+            .then(result => responce.push({ id:1, title : "Высер Итана", text: result, img: "https://i.imgur.com/CO35jw4.png"}));
         const treechText = treechStack.pop()
-            .then(result => responce.push({id:2, title : "Высер тричера", text: result, img: "https://i.imgur.com/9Cm0EQv.jpg"}));
+            .then(result => responce.push({ id:2, title : "Высер тричера", text: result, img: "https://i.imgur.com/9Cm0EQv.jpg"}));
         const agroText = agroStack.pop()
-            .then(result => responce.push({id:3, title : "Высер злобного девственника", text: result, img: "https://memepedia.ru/wp-content/uploads/2016/08/9df18f050741a1da79d70751018f8811.jpg"}));
+            .then(result => responce.push({ id:3, title : "Высер злобного девственника", text: result, img: "https://memepedia.ru/wp-content/uploads/2016/08/9df18f050741a1da79d70751018f8811.jpg"}));
 
         await Promise.all([itanText, treechText, agroText]);
 
@@ -40,7 +40,7 @@ module.exports.sendTreechText = (bot, operation) => {
             .map((x) => {
             return {
                 type: 'article',
-                id: id,
+                id: x.id,
                 title: x.title,
                 message_text: x.text,
                 thumb_url: x.img
