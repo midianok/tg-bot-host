@@ -7,8 +7,28 @@ on:
     branches: [ main ]
 
 jobs:
+  tests_and_lint:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn
+      - name: Run lint
+        run: yarn lint .
+      - name: Run tests
+        run: yarn test
+
   deploy:
-    name: deploy
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: executing remote ssh commands using password
@@ -19,24 +39,4 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           port: 22
-          script: screenfetch
-
-  tests_and_lint:
-    name: Test & Lint
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - name: Install dependencies
-      run: yarn
-    - name: Run lint
-      run: yarn lint .
-    - name: Run tests
-      run: yarn test
+          script: ${{ secrets.DEPLOYSCRIPTPATH }}
