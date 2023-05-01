@@ -13,8 +13,8 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          passphrase: ${{ secrets.PASSPHRASEKEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           port: 22
           script: screenfetch
