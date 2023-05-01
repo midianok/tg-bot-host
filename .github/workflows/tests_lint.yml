@@ -1,4 +1,4 @@
-name: Tests & Lint
+name: CI & DI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  tests_and_lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,3 +25,17 @@ jobs:
       run: yarn lint .
     - name: Run tests
       run: yarn test
+
+    deploy:
+      name: Build
+      runs-on: ubuntu-latest
+      steps:
+        - name: executing remote ssh commands using password
+          uses: appleboy/ssh-action@v0.1.10
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.KEY }}
+            passphrase: ${{ secrets.PASSPHRASE }}
+            port: 22
+            script: screenfetch
