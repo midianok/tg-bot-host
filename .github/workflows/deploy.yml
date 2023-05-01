@@ -15,6 +15,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          passphrase: ${{ secrets.KEY }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASEKEY }}
           port: 22
           script: screenfetch
