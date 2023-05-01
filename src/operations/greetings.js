@@ -1,6 +1,6 @@
-const { getRandomElement } = require("./../util/getRandomString");
+const { getRandomElement } = require("../util/getRandomElement");
+const { getCachedOperation } = require("../util/operationCache");
 const { logger } = require("../logger");
-const {getCachedOperation} = require("../util/operationCache");
 
 const operationName = "greetings";
 module.exports.GREETINGS = operationName;
@@ -21,9 +21,9 @@ module.exports.greetings = (bot) => {
             const userName = user.username ?? user.first_name;
             logger.info('new chat member detected', {...logMeta, userName});
             const response = getRandomElement(operation.response);
-            const message = response.replace("{user}", `@${userName}`)
+            const message = response.replace("{user}", `@${userName}`);
             ctx.reply(message);
             logger.info('new chat member greet complete', {...logMeta, resultMessage: message});
         });
-    })
-}
+    });
+};

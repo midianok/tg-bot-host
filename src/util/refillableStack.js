@@ -37,4 +37,4 @@ class RefillableStack {
         }
     }
 }
-module.exports.RefillableStack = RefillableStack
+module.exports.RefillableStack = RefillableStack;

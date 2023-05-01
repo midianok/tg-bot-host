@@ -26,7 +26,7 @@ module.exports.randomPug = (bot) => {
         const catPhotoLink = catPhotoResult?.response[0]?.urls?.regular;
         if (catPhotoLink) {
             await ctx.replyWithPhoto({ url: catPhotoLink }, {reply_to_message_id : ctx.message.message_id});
-            logger.info('pug sent', logMeta)
+            logger.info('pug sent', logMeta);
         }
-    })
-}
+    });
+};

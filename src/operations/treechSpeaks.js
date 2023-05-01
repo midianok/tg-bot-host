@@ -1,24 +1,26 @@
 const { markdownv2: format } = require('telegram-format');
-const { RefillableStack } = require('../util/agroStack');
+const { RefillableStack } = require('../util/refillableStack');
+const { config } = require('../config');
 const fetch = require('node-fetch');
-const operationName = "treech-text"
+const operationName = "treech-text";
 module.exports.TREECH_TEXT = operationName;
 let agroStack;
 let itanStack;
 let treechStack;
+const markovServiceUrl = config.markovServiceUrl;
 
 module.exports.initStack = () => {
-    const agroFillFunc = () => fetch('http://markov/agro')
+    const agroFillFunc = () => fetch(`${markovServiceUrl}/agro`)
         .then(result => result.text());
     agroStack = new RefillableStack(agroFillFunc, 50, "agro");
     agroStack.fill();
 
-    const itanFillFunc = () => fetch('http://markov/treech-itan')
+    const itanFillFunc = () => fetch(`${markovServiceUrl}/treech-itan`)
         .then(result => result.text());
     itanStack = new RefillableStack(itanFillFunc, 10, "itan");
     itanStack.fill();
 
-    const treechFillFunc = () => fetch('http://markov/treech-general')
+    const treechFillFunc = () => fetch(`${markovServiceUrl}/treech-general`)
         .then(result => result.text());
     treechStack = new RefillableStack(treechFillFunc, 10, "treech");
     treechStack.fill();
@@ -44,9 +46,9 @@ module.exports.sendTreechText = (bot, operation) => {
                 title: x.title,
                 message_text: x.text,
                 thumb_url: x.img
-            }
+            };
         }).sort((a, b) => a.id - b.id);
 
         ctx.answerInlineQuery(replies, {cache_time: 0});
-    })
-}
+    });
+};

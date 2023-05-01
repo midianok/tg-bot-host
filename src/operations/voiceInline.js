@@ -1,7 +1,7 @@
 const { getCachedOperation } = require("../util/operationCache");
 const { addVoiceInlineItem } = require("../db/botRepository");
 const { markdownv2: format } = require('telegram-format');
-const operationName = "voice-inline"
+const operationName = "voice-inline";
 module.exports.VOICE_INLINE = operationName;
 
 module.exports.sendVoiceInline = (bot, operation) => {
@@ -9,7 +9,7 @@ module.exports.sendVoiceInline = (bot, operation) => {
         const fileId = ctx.update.message.voice.file_id;
 
         await addVoiceInlineItem(bot.token, fileId);
-        await ctx.replyWithMarkdown(format.monospace(fileId), { parse_mode: 'MarkdownV2' })
+        await ctx.replyWithMarkdown(format.monospace(fileId), { parse_mode: 'MarkdownV2' });
     });
 
     bot.on('inline_query', async (ctx) => {
@@ -20,10 +20,10 @@ module.exports.sendVoiceInline = (bot, operation) => {
                 title: x.title,
                 voice_file_id: x.voice_file_id,
                 type: 'voice'
-            }
-        })
+            };
+        });
         const filteredReplies = replies.filter(x => x.title.toLowerCase().includes(ctx.update.inline_query.query.toLowerCase()));
 
         ctx.answerInlineQuery(filteredReplies);
-    })
-}
+    });
+};

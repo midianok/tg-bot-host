@@ -1,13 +1,13 @@
-const { getRandomElement } = require("./../util/getRandomString");
+const { getRandomElement } = require("../util/getRandomElement");
 const { probability } = require("./../util/probability");
 const { logger } = require("../logger");
 const {getCachedOperation} = require("../util/operationCache");
 
-const operationName = "reply"
+const operationName = "reply";
 module.exports.REPLY = operationName;
 
 module.exports.reply = async (bot) => {
-    const operation = await getCachedOperation(bot.token, operationName)
+    const operation = await getCachedOperation(bot.token, operationName);
     const regexp = new RegExp(operation.regexPattern);
 
     bot.hears(regexp,async (ctx, next) => {
@@ -33,11 +33,11 @@ module.exports.reply = async (bot) => {
         }
         const replies = [];
         if (operation.replies && operation.replies.length > 0) {
-            replies.push(...operation.replies.map( x =>  { return { type: 'text', reply: x } }))
+            replies.push(...operation.replies.map( x =>  { return { type: 'text', reply: x }; }));
         }
 
         if (operation.stiсkerReplies && operation.stiсkerReplies.length > 0) {
-            replies.push(...operation.stiсkerReplies.map( x =>  { return { type: 'sticker', reply: x } }));
+            replies.push(...operation.stiсkerReplies.map( x =>  { return { type: 'sticker', reply: x }; }));
         }
         if (replies.length === 0) {
             logger.info("replies is empty", {...logMeta, isBot, userInReplyList, hits});
@@ -56,5 +56,5 @@ module.exports.reply = async (bot) => {
         }
 
         return next();
-    })
+    });
 };

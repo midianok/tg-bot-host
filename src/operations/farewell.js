@@ -1,4 +1,4 @@
-const { getRandomElement } = require("./../util/getRandomString");
+const { getRandomElement } = require("../util/getRandomElement");
 const { getCachedOperation } = require("../util/operationCache");
 const { logger } = require("../logger");
 
@@ -17,13 +17,13 @@ module.exports.farewell = (bot) => {
         };
         const operation = await getCachedOperation(bot.token, operationName);
 
-        const user = ctx.message.left_chat_member
+        const user = ctx.message.left_chat_member;
         const userName = user.username ?? user.first_name;
         logger.info('left chat member detected', {...logMeta, userName});
         const response = getRandomElement(operation.response);
-        const message = response.replace("{user}", `@${userName}`)
+        const message = response.replace("{user}", `@${userName}`);
         ctx.reply(message, {reply_to_message_id: ctx.message.message_id});
         logger.info('left chat member farewell complete', {...logMeta, resultMessage: message});
-    })
+    });
 
-}
+};

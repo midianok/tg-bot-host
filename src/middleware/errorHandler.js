@@ -25,7 +25,7 @@ const retry = async (tryCount, func, ctx) => {
             await sleep(3000);
         }
     }
-}
+};
 
 
 const sleep = async (ms) => {

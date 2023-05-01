@@ -11,7 +11,7 @@ module.exports.findAllBotsConfigurations = async () => {
         .toArray();
     await client.close();
     return bots;
-}
+};
 
 module.exports.findBotConfiguration = async (botToken) => {
     const client = await new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).connect();
@@ -22,7 +22,7 @@ module.exports.findBotConfiguration = async (botToken) => {
         .findOne({token: botToken});
     await client.close();
     return bot;
-}
+};
 
 module.exports.addVoiceInlineItem = async (botToken, fileId) => {
     const client = await new MongoClient(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).connect();
@@ -39,7 +39,7 @@ module.exports.addVoiceInlineItem = async (botToken, fileId) => {
         .voices
         .map(voice => voice.id);
 
-    const lastVoiceId = Math.max(...voiceIds)
+    const lastVoiceId = Math.max(...voiceIds);
 
     const updateDocument = {
         $push: {
@@ -58,4 +58,4 @@ module.exports.addVoiceInlineItem = async (botToken, fileId) => {
         .updateOne(query, updateDocument);
 
     await client.close();
-}
+};
