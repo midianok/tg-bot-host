@@ -10,7 +10,7 @@ let treechStack;
 const markovServiceUrl = config.markovServiceUrl;
 
 module.exports.initStack = () => {
-    const agroFillFunc = () => fetch(`${markovServiceUrl}/agro`)
+    const agroFillFunc = () => fetch(`${markovServiceUrl}/gpt/Поругайся в стиле агрессивного школьника, у которого никогда не было секса/300`)
         .then(result => result.text());
     agroStack = new RefillableStack(agroFillFunc, 50, "agro");
     agroStack.fill();
