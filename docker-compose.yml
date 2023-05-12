@@ -6,8 +6,14 @@ services:
       CONFIGURATIONS_COLLECTION_NAME: ${CONFIGURATIONS_COLLECTION_NAME}
       CONNECTION_STRING: ${CONNECTION_STRING}
       UNSPLASH_ACCESS_KEY: ${UNSPLASH_ACCESS_KEY}
+      IMAGE_MANIPULATION_SERVICE_URL: ${IMAGE_MANIPULATION_SERVICE_URL}
+
+  imagemanipulation:
+    build: ../image-manipulation-service/
+
   markov:
     build: ../markov-service/
+
   mongodb:
     image: mongo
     restart: always
@@ -18,5 +24,6 @@ services:
       - /root/app/mongo-data/:/data/db
     ports:
       - "27117:27017"
+
 networks:
   app:

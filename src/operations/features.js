@@ -5,6 +5,7 @@ const { randomCat, RANDOM_CAT} = require("./randomCat");
 const { randomPug, RANDOM_PUG} = require("./randomPug");
 const { sendVoiceInline, VOICE_INLINE} = require("./voiceInline");
 const {sendTreechText, TREECH_TEXT } = require("./treechSpeaks");
+const {imageDistort, IMAGE_DISTORT } = require("./imageDistort");
 
 module.exports.features = {
     [REPLY]: reply,
@@ -13,5 +14,6 @@ module.exports.features = {
     [RANDOM_CAT]: randomCat,
     [RANDOM_PUG]: randomPug,
     [VOICE_INLINE]: sendVoiceInline,
-    [TREECH_TEXT]: sendTreechText
+    [TREECH_TEXT]: sendTreechText,
+    [IMAGE_DISTORT]: imageDistort
 };
