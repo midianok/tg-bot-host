@@ -4,7 +4,7 @@ const { config } = require('../config')
 module.exports.IMAGE_DISTORT = operationName;
 
 module.exports.imageDistort = async (bot) => {
-    bot.hears('нука', async (ctx, next) => {
+    bot.hears(/нука|Нука|жмыхни|Жмыхни/, async (ctx, next) => {
         const logMeta = {
             botName: ctx.botInfo.username,
             operation: module.exports.GREETINGS,
