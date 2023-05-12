@@ -21,7 +21,6 @@ const init = async () => {
 
         bot.use(checkTime);
         bot.use(errorHandler);
-        bot.use(debounce);
         bot.use(telegrafThrottler());
         bot.use(updateLogger({ colors: true }));
 
