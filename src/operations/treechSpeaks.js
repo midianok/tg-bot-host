@@ -4,16 +4,16 @@ const { config } = require('../config');
 const fetch = require('node-fetch');
 const operationName = "treech-text";
 module.exports.TREECH_TEXT = operationName;
-let agroStack;
+// let agroStack;
 let itanStack;
 let treechStack;
 const markovServiceUrl = config.markovServiceUrl;
 
 module.exports.initStack = () => {
-    const agroFillFunc = () => fetch(`${markovServiceUrl}/agro`)
-        .then(result => result.text());
-    agroStack = new RefillableStack(agroFillFunc, 50, "agro");
-    agroStack.fill();
+    // const agroFillFunc = () => fetch(`${markovServiceUrl}/agro`)
+    //     .then(result => result.text());
+    // agroStack = new RefillableStack(agroFillFunc, 50, "agro");
+    // agroStack.fill();
 
     const itanFillFunc = () => fetch(`${markovServiceUrl}/treech-itan`)
         .then(result => result.text());
@@ -33,10 +33,10 @@ module.exports.sendTreechText = (bot, operation) => {
             .then(result => responce.push({ id:1, title : "Высер Итана", text: result, img: "https://i.imgur.com/CO35jw4.png"}));
         const treechText = treechStack.pop()
             .then(result => responce.push({ id:2, title : "Высер тричера", text: result, img: "https://i.imgur.com/9Cm0EQv.jpg"}));
-        const agroText = agroStack.pop()
-            .then(result => responce.push({ id:3, title : "Высер злобного девственника", text: result, img: "https://memepedia.ru/wp-content/uploads/2016/08/9df18f050741a1da79d70751018f8811.jpg"}));
+        // const agroText = agroStack.pop()
+        //     .then(result => responce.push({ id:3, title : "Высер злобного девственника", text: result, img: "https://memepedia.ru/wp-content/uploads/2016/08/9df18f050741a1da79d70751018f8811.jpg"}));
 
-        await Promise.all([itanText, treechText, agroText]);
+        await Promise.all([itanText, treechText]);
 
         const replies = responce
             .map((x) => {

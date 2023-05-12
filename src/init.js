@@ -48,13 +48,13 @@ const init = async () => {
 
         process.once('SIGINT', () => {
             bot.stop('SIGINT');
-            logger.info("app stoped", { pid: process.pid, reason: 'SIGINT'});
+            logger.info("app stopped", { pid: process.pid, reason: 'SIGINT'});
             process.exit();
         });
 
         process.once('SIGTERM', () => {
             bot.stop('SIGTERM');
-            logger.info("app stoped", { pid: process.pid, reason: 'SIGTERM'});
+            logger.info("app stopped", { pid: process.pid, reason: 'SIGTERM'});
             process.exit();
         });
     }
