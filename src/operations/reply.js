@@ -24,7 +24,8 @@ module.exports.reply = async (bot) => {
         };
 
         const isBot = ctx.update.message.from.is_bot;
-        const userInReplyList = operation.userReplyList ? operation.userReplyList.includes(ctx.update.message.from.username) : true;
+        const userInReplyList = operation.userReplyList ? operation.userReplyList.includes(ctx.update.message.from.username) || operation.userReplyList.includes(ctx.update.message.from.id): true;
+
         const hits = operation.probability ? probability(operation.probability) : true;
 
         if (isBot || !userInReplyList || !hits) {
